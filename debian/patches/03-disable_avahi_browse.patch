@@ -1,0 +1,42 @@
+Description: Disable completions based on avahi-browse
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/bash-completion/+bug/510591
+Bug-Debian: https://bugs.debian.org/574950
+Forwarded: no
+Origin: vendor
+From: Chris Jones <cmsj@tenshu.net>
+---
+ bash_completion |   17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+--- bash-completion.orig/bash_completion
++++ bash-completion/bash_completion
+@@ -1549,18 +1549,23 @@ _known_hosts_real()
+             -S "$suffix" -W "$hosts" -- "$cur" ) )
+     fi
+ 
++    # This feature is disabled because it does not scale to
++    #  larger networks. See:
++    # https://bugs.launchpad.net/ubuntu/+source/bash-completion/+bug/510591
++    # https://bugs.debian.org/574950
++
+     # Add hosts reported by avahi-browse, if desired and it's available.
+-    if [[ ${COMP_KNOWN_HOSTS_WITH_AVAHI:-} ]] && \
+-        type avahi-browse &>/dev/null; then
++    #if [[ ${COMP_KNOWN_HOSTS_WITH_AVAHI:-} ]] && \
++        #type avahi-browse &>/dev/null; then
+         # The original call to avahi-browse also had "-k", to avoid lookups
+         # into avahi's services DB. We don't need the name of the service, and
+         # if it contains ";", it may mistify the result. But on Gentoo (at
+         # least), -k wasn't available (even if mentioned in the manpage) some
+         # time ago, so...
+-        COMPREPLY+=( $( compgen -P "$prefix$user" -S "$suffix" -W \
+-            "$( avahi-browse -cpr _workstation._tcp 2>/dev/null | \
+-                awk -F';' '/^=/ { print $7 }' | sort -u )" -- "$cur" ) )
+-    fi
++        #COMPREPLY+=( $( compgen -P "$prefix$user" -S "$suffix" -W \
++        #    "$( avahi-browse -cpr _workstation._tcp 2>/dev/null | \
++        #        awk -F';' '/^=/ { print $7 }' | sort -u )" -- "$cur" ) )
++    #fi
+ 
+     # Add hosts reported by ruptime.
+     COMPREPLY+=( $( compgen -W \

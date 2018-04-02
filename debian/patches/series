@@ -1,0 +1,8 @@
+00-fix_quote_readline_by_ref.patch
+01-apt-get-Complete-install-package-versions.patch
+02-dpkg-source-Add-options.patch
+03-disable_avahi_browse.patch
+04-xine_add_more_formats.patch
+06-xpdf_support_compressed_pdf.patch
+07-dpkg_support_raw-extract_vextract.patch
+15-add_backslash_for_tilde.patch

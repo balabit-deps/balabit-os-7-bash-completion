@@ -1,0 +1,25 @@
+From: Antonio Terceiro <terceiro@debian.org>
+Subject: dpkg-source: Add --before-build --after-build --commit, and --print-format
+Origin: upstream, https://github.com/scop/bash-completion/commit/1404d3f995649e1f70ffbb8239acd585e8246df4.patch
+Bug-Debian: https://bugs.debian.org/756887
+
+---
+ completions/dpkg-source | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/completions/dpkg-source b/completions/dpkg-source
+index 54403851..826d0f83 100644
+--- a/completions/dpkg-source
++++ b/completions/dpkg-source
+@@ -10,7 +10,7 @@ _dpkg_source()
+     packopts="-c -l -F -V -T -D -U -W -E -sa -i -I -sk -sr -ss -sA -sK -sP \
+         -sU -sR"
+     unpackopts="-sp -sn -su"
+-    options="-x -b $packopts $unpackopts"
++    options="-x -b --print-format --before-build --after-build --commit $packopts $unpackopts"
+     fields="Format Source Version Binary Maintainer Uploader Architecture \
+             Standards-Version Build-Depends Files"
+ 
+-- 
+2.16.2
+
